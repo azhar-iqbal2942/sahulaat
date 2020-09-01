@@ -16,10 +16,6 @@ class Profile extends Component {
     const { data: phonebook } = await getPhoneBookList();
     this.setState({ userOffer, userDetail, phonebook });
   }
-  componentDidUpdate(prevProps, prevState) {
-    console.log("prevProps", prevProps);
-    console.log("prevState", prevState);
-  }
 
   // static contextType = UserContext;
   render() {
