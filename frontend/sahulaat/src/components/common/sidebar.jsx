@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import PhoneBookModal from "./phonebookModal";
-import ProfileModal from "./profileModal";
 import { setPhoneBook } from "../../services/offer";
 
 class LeftBar extends Component {
   state = {
     isPhoneBookModal: false,
-    isEditModal: false,
+
     isContactAdd: false,
     phoneBook_data: {
       first_name: "",
@@ -24,11 +23,6 @@ class LeftBar extends Component {
     let isPhoneBookModal = this.state.isPhoneBookModal;
     isPhoneBookModal ? (isPhoneBookModal = false) : (isPhoneBookModal = true);
     this.setState({ isPhoneBookModal });
-  };
-  handleEditModal = () => {
-    let isEditModal = this.state.isEditModal;
-    isEditModal ? (isEditModal = false) : (isEditModal = true);
-    this.setState({ isEditModal });
   };
 
   handleChange = ({ currentTarget: input }) => {
@@ -66,29 +60,6 @@ class LeftBar extends Component {
               <p className="font-medium text-gray-600">{user.occupation}</p>
               <p className="font-medium text-gray-600">{user.email}</p>
               <div className="flex justify-center mt-2 space-x-3">
-                <button
-                  onClick={this.handleEditModal}
-                  className="flex flex-row gap-2 px-2 py-2 font-semibold text-gray-700 bg-transparent border border-gray-400 rounded-lg focus:outline-none"
-                >
-                  Edit
-                  <svg
-                    width="1.2em"
-                    height="1.2em"
-                    viewBox="0 0 16 16"
-                    className="pt-1 bi bi-pencil"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"
-                    />
-                    <path
-                      fillRule="evenodd"
-                      d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"
-                    />
-                  </svg>
-                </button>
                 <button
                   onClick={this.handlePhoneBookModal}
                   className="flex flex-row gap-2 px-2 py-2 font-semibold text-gray-700 bg-transparent border border-gray-400 rounded-lg focus:outline-none"
@@ -145,7 +116,6 @@ class LeftBar extends Component {
             data={this.state.phoneBook_data}
             handleChange={this.handleChange}
           />
-          <ProfileModal handleModal={this.handleEditModal} isEditModal={isEditModal} />
         </div>
       </nav>
     );
