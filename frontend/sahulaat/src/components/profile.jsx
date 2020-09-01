@@ -10,8 +10,9 @@ class Profile extends Component {
     phonebook: [],
   };
   async componentDidMount() {
-    const { data: userOffer } = await getUserOfferList(1);
-    const { data: userDetail } = await getuserDetail(1);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const { data: userOffer } = await getUserOfferList(user.id);
+    const { data: userDetail } = await getuserDetail(user.id);
     const { data: phonebook } = await getPhoneBookList();
     this.setState({ userOffer, userDetail, phonebook });
   }
@@ -19,6 +20,7 @@ class Profile extends Component {
     console.log("prevProps", prevProps);
     console.log("prevState", prevState);
   }
+
   // static contextType = UserContext;
   render() {
     const { userOffer } = this.state;

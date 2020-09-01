@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import PhoneBookModal from "./phonebookModal";
 import ProfileModal from "./profileModal";
+import { setPhoneBook } from "../../services/offer";
 
 class LeftBar extends Component {
   state = {
     isPhoneBookModal: false,
     isEditModal: false,
     isContactAdd: false,
+    phoneBook_data: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_no: "",
+    },
   };
   handleContactAdd = () => {
     let isContactAdd = this.state.isContactAdd;
@@ -23,7 +30,18 @@ class LeftBar extends Component {
     isEditModal ? (isEditModal = false) : (isEditModal = true);
     this.setState({ isEditModal });
   };
-  componentDidUpdate(prevProps, prevState) {}
+
+  handleChange = ({ currentTarget: input }) => {
+    const phoneBook_data = { ...this.state.phoneBook_data };
+    phoneBook_data[input.name] = input.value;
+    this.setState({ phoneBook_data });
+  };
+
+  handleSave = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const { data } = await setPhoneBook(user.id, this.state.phoneBook_data);
+    console.log(data);
+  };
 
   render() {
     const user = this.props.data;
@@ -123,6 +141,9 @@ class LeftBar extends Component {
             isContactAdd={isContactAdd}
             phoneBook={phoneBook}
             handleModal={this.handlePhoneBookModal}
+            onSave={this.handleSave}
+            data={this.state.phoneBook_data}
+            handleChange={this.handleChange}
           />
           <ProfileModal handleModal={this.handleEditModal} isEditModal={isEditModal} />
         </div>

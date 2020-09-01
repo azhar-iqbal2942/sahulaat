@@ -1,6 +1,15 @@
 import React from "react";
 
-const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleContactAdd, handleModal }) => {
+const PhoneBookModal = ({
+  isPhoneBookModal,
+  isContactAdd,
+  phoneBook,
+  handleContactAdd,
+  handleModal,
+  onSave,
+  data,
+  handleChange,
+}) => {
   return (
     <section>
       {isPhoneBookModal && (
@@ -16,7 +25,7 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
             aria-labelledby="modal-headline"
           >
             <section>
-              <header className="flex items-center justify-between h-10 mx-6 my-3 ">
+              <div className="flex items-center justify-between h-10 mx-6 my-3 ">
                 {isContactAdd ? (
                   <h1 className="text-xl font-bold text-gray-600 ">Add Contacts</h1>
                 ) : (
@@ -31,7 +40,10 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                       >
                         Back
                       </button>
-                      <button className="inline-flex object-center px-2 py-1 m-0 my-3 font-sans text-base text-white bg-blue-600 border border-gray-300 rounded-md shadow-sm focus:outline-none ">
+                      <button
+                        onClick={onSave}
+                        className="inline-flex object-center px-2 py-1 m-0 my-3 font-sans text-base text-white bg-blue-600 border border-gray-300 rounded-md shadow-sm focus:outline-none "
+                      >
                         Save
                       </button>
                     </div>
@@ -44,9 +56,9 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                     </button>
                   )}
                 </div>
-              </header>
+              </div>
 
-              <body>
+              <div>
                 {isContactAdd ? (
                   <form>
                     <div className="justify-between gap-2 mx-6 mt-3 lg:flex lg:flex-row sm:flex-col">
@@ -55,6 +67,10 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                           First Name
                         </label>
                         <input
+                          id="first_name"
+                          name="first_name"
+                          value={data.first_name}
+                          onChange={handleChange}
                           className="block px-4 py-1 text-gray-700 border border-gray-400 rounded appearance-none focus:outline-none "
                           type="text"
                         />
@@ -64,6 +80,10 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                           Last Name
                         </label>
                         <input
+                          id="last_name"
+                          name="last_name"
+                          value={data.last_name}
+                          onChange={handleChange}
                           className="block px-4 py-1 text-gray-700 border border-gray-400 rounded appearance-none focus:outline-none "
                           type="text"
                         />
@@ -75,6 +95,10 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                           Email
                         </label>
                         <input
+                          id="email"
+                          name="email"
+                          value={data.email}
+                          onChange={handleChange}
                           className="block px-4 py-1 text-gray-700 border border-gray-400 rounded appearance-none focus:outline-none "
                           type="email"
                         />
@@ -84,6 +108,10 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                           Phone No
                         </label>
                         <input
+                          id="phone_no"
+                          name="phone_no"
+                          value={data.phone_no}
+                          onChange={handleChange}
                           className="block px-4 py-1 text-gray-700 border border-gray-400 rounded appearance-none focus:outline-none "
                           type="text"
                         />
@@ -94,7 +122,7 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                   <div>
                     {phoneBook &&
                       phoneBook.map((phone) => (
-                        <div className="flex items-center mx-6 my-3 space-x-4">
+                        <div key={phone.id} className="flex items-center mx-6 my-3 space-x-4">
                           <img
                             className="block w-16 h-16 mr-2 rounded-full"
                             src="https://source.unsplash.com/1600x900/?nature,water"
@@ -109,7 +137,7 @@ const PhoneBookModal = ({ isPhoneBookModal, isContactAdd, phoneBook, handleConta
                       ))}
                   </div>
                 )}
-              </body>
+              </div>
             </section>
 
             <div className="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">

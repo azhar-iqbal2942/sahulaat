@@ -16,8 +16,18 @@ export function getuserDetail(id) {
   return http.get(`http://127.0.0.1:8000/api/user/new/${id}`);
 }
 
+// Phone Book links
 export function getPhoneBookList() {
   return http.get("http://127.0.0.1:8000/api/user/phonebook/");
+}
+
+export function setPhoneBook(id, phoneBook) {
+  return http.post(`http://127.0.0.1:8000/api/user/phonebook/create/`, {
+    name: phoneBook.first_name + " " + phoneBook.last_name,
+    phone_no: phoneBook.phone_no,
+    email: phoneBook.email,
+    user: id,
+  });
 }
 
 export function getOfferDetail(id) {

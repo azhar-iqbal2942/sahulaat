@@ -18,3 +18,8 @@ class UserUpdate(UpdateAPIView):
 class PhoneBookList(ListAPIView):
     queryset = PhoneBook.objects.all()
     serializer_class = PhoneBookSerializer
+
+
+class PhoneBookCreate(CreateAPIView):
+    queryset = PhoneBook.objects.all()
+    serializer_class = PhoneBookSerializer
