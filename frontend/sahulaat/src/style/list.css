@@ -1,0 +1,9 @@
+.verticalLine {
+  border-right: solid black;
+  height: 600px;
+}
+
+.listSet {
+  max-width: 240px;
+  margin-top: 120px;
+}
