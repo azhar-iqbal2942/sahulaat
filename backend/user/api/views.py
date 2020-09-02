@@ -16,7 +16,9 @@ class UserUpdate(UpdateAPIView):
 
 
 class PhoneBookList(ListAPIView):
-    queryset = PhoneBook.objects.all()
+    def get_queryset(self):
+        phonebooks = PhoneBook.objects.filter(user=self.kwargs['id'])
+        return phonebooks
     serializer_class = PhoneBookSerializer
 
 

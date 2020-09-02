@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import { getServices, setOffer } from "./../../services/offer";
 import Select from "react-select";
 
@@ -8,6 +9,25 @@ class OfferForm extends Component {
     dropState: false,
     selectedOptions: [],
     selectedOption: null,
+    errors: {},
+  };
+  schema = {
+    title: Joi.string().required().label("Title"),
+    description: Joi.string().required().label("Description"),
+    price: Joi.number().integer().min(1).max(100).required().label("Price"),
+  };
+  validate = () => {
+    const { error } = Joi.validate(this.state.data, this.schema, { abortEarly: false });
+    if (!error) return null;
+    const errors = {};
+    for (let item of error.details) errors[item.path[0]] = item.message;
+    return errors;
+  };
+  validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
   };
   handleSelect = (selectedOption) => {
     this.setState({ selectedOption });
@@ -19,6 +39,11 @@ class OfferForm extends Component {
     this.setState({ dropState });
   };
   handleSubmit = async () => {
+    const errors = this.validate();
+    console.log(errors);
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+
     try {
       const author = JSON.parse(localStorage.getItem("user"));
       await setOffer(this.state.data, this.state.selectedOption.value, author.id);
@@ -31,9 +56,14 @@ class OfferForm extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
     const data = { ...this.state.data };
     data[input.name] = input.value;
-    this.setState({ data });
+    this.setState({ data, errors });
   };
   async componentDidMount() {
     const { data: services } = await getServices();
@@ -46,7 +76,7 @@ class OfferForm extends Component {
   }
 
   render() {
-    const { data } = this.state;
+    const { data, errors } = this.state;
     const { selectedOptions } = this.state;
     const { selectedOption } = this.state;
     return (
@@ -73,6 +103,8 @@ class OfferForm extends Component {
               placeholder="Title"
               type="text"
             />
+            {errors.title && <p className="text-xs italic text-red-500">{errors.title}</p>}
+
             <input
               value={data.description}
               onChange={this.handleChange}
@@ -82,6 +114,8 @@ class OfferForm extends Component {
               placeholder="Description"
               type="text"
             />
+            {errors.description && <p className="text-xs italic text-red-500">{errors.description}</p>}
+
             <input
               value={data.price}
               onChange={this.handleChange}
@@ -91,6 +125,9 @@ class OfferForm extends Component {
               placeholder="Price"
               type="text"
             />
+
+            {errors.price && <p className="text-xs italic text-red-500">{errors.price}</p>}
+
             <Select
               placeholder="Service"
               className="mb-4"

@@ -3,7 +3,6 @@ import { getServices } from "./../services/offer";
 
 import Banner from "./common/banner";
 import MainCard from "./card/home-card";
-import Footer from "./common/footer";
 
 class Home extends Component {
   state = {

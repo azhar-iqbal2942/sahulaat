@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LeftBar from "./common/sidebar";
-import { getUserOfferList, getuserDetail, getPhoneBookList } from "./../services/offer";
+import { getUserOfferList, getuserDetail } from "./../services/offer";
 // import UserContext from "./context/userContext";
 
 class Profile extends Component {
@@ -13,8 +13,8 @@ class Profile extends Component {
     const user = JSON.parse(localStorage.getItem("user"));
     const { data: userOffer } = await getUserOfferList(user.id);
     const { data: userDetail } = await getuserDetail(user.id);
-    const { data: phonebook } = await getPhoneBookList();
-    this.setState({ userOffer, userDetail, phonebook });
+
+    this.setState({ userOffer, userDetail });
   }
 
   // static contextType = UserContext;

@@ -12,6 +12,9 @@ import Logout from "./components/auth/logout";
 import OfferForm from "./components/form/offerForm";
 import Setting from "./components/setting";
 import Footer from "./components/common/footer";
+import Team from "./components/team";
+import About from "./components/about";
+import Contact from "./components/contactUs";
 import "./style/tailwind/tailwind.output.css";
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
       <Navbar />
       <main>
         <Switch>
+          <Route path="/contact" component={Contact} />
+          <Route path="/about" component={About} />
+          <Route path="/team" component={Team} />
           <Route path="/setting" component={Setting} />
           <Route path="/create/offer" component={OfferForm} />
           <Route path="/logout" component={Logout} />
@@ -31,7 +37,7 @@ function App() {
           <Route exact path="/" component={Home} />
         </Switch>
       </main>
-      <Footer/>
+      <Footer />
     </React.Fragment>
   );
 }

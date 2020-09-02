@@ -17,8 +17,8 @@ export function getuserDetail(id) {
 }
 
 // Phone Book links
-export function getPhoneBookList() {
-  return http.get("http://127.0.0.1:8000/api/user/phonebook/");
+export function getPhoneBookList(id) {
+  return http.get(`http://127.0.0.1:8000/api/user/phonebook/${id}`);
 }
 
 export function setPhoneBook(id, phoneBook) {

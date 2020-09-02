@@ -3,7 +3,6 @@ import ListCard from "./card/list-card";
 import ListGroup from "./common/listGroup";
 import { getOfferList, getServices } from "../services/offer";
 import SearchBox from "./common/searchBox";
-import Footer from "../../src/components/common/footer";
 
 class List extends Component {
   state = {

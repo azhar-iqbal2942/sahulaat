@@ -118,11 +118,11 @@ class Navbar extends Component {
                       <div
                         className={
                           this.state.serviceMenuState
-                            ? "absolute right-0 w-56 mt-4 origin-top-right rounded-md shadow-lg border border-gray-800"
+                            ? "absolute right-0 w-40 mt-4 origin-top-right z-10 rounded-md shadow-lg border border-gray-800"
                             : "hidden"
                         }
                       >
-                        <div className="bg-white rounded-md shadow-xs">
+                        <div className="bg-white rounded-md shadow-xs ">
                           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                             {services &&
                               services.map((service) => (
@@ -130,7 +130,7 @@ class Navbar extends Component {
                                   to={`/offer/${service.id}`}
                                   onClick={this.handleServiceDropdown}
                                   key={service.id}
-                                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                  className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                   role="menuitem"
                                 >
                                   {service.name}
@@ -142,12 +142,24 @@ class Navbar extends Component {
                     </div>
 
                     {/* End Dropdown */}
-                    <a
-                      href="#"
+                    <Link
+                      to="/team"
                       className="px-3 py-2 ml-4 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:text-white hover:bg-gray-900 "
                     >
                       Team
-                    </a>
+                    </Link>
+                    <Link
+                      to="/about"
+                      className="px-3 py-2 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:bg-gray-900 "
+                    >
+                      About
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="px-3 py-2 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:bg-gray-900 "
+                    >
+                      Contact Us
+                    </Link>
                   </div>
                 </div>
               </div>
