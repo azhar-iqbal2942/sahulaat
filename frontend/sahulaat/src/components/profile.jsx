@@ -22,7 +22,6 @@ class Profile extends Component {
     const { userOffer } = this.state;
     const { userDetail } = this.state;
     // console.log("Render", this.context);
-    console.log(userOffer);
 
     return (
       <div className="flex flex-col mt-12 lg:flex-row">

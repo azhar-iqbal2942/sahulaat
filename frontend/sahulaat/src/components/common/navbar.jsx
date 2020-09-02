@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getServices } from "./../../services/offer";
 
 class Navbar extends Component {
   state = {
+    services: [],
     isOpen: false,
     dropState: false,
+    serviceMenuState: false,
   };
+  async componentDidMount() {
+    const { data: services } = await getServices();
+
+    this.setState({ services });
+  }
   handleMenu = () => {
     let isOpen = this.state.isOpen;
     isOpen ? (isOpen = false) : (isOpen = true);
@@ -16,8 +24,14 @@ class Navbar extends Component {
     dropState ? (dropState = false) : (dropState = true);
     this.setState({ dropState });
   };
+  handleServiceDropdown = () => {
+    let serviceState = this.state.serviceMenuState;
+    serviceState ? (serviceState = false) : (serviceState = true);
+    this.setState({ serviceMenuState: serviceState });
+  };
   render() {
     const token = localStorage.getItem("token");
+    const { services } = this.state;
 
     return (
       <React.Fragment>
@@ -84,6 +98,50 @@ class Navbar extends Component {
                     >
                       Home
                     </Link>
+                    {/* Service Dropdown */}
+                    <div className="relative inline-block text-left">
+                      <div>
+                        <span className="rounded-md shadow-sm">
+                          <button
+                            onClick={this.handleServiceDropdown}
+                            type="button"
+                            className="px-3 py-2 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:bg-gray-900 focus:outline-none"
+                            id="options-menu"
+                            aria-haspopup="true"
+                            aria-expanded="true"
+                          >
+                            Services
+                          </button>
+                        </span>
+                      </div>
+
+                      <div
+                        className={
+                          this.state.serviceMenuState
+                            ? "absolute right-0 w-56 mt-4 origin-top-right rounded-md shadow-lg border border-gray-800"
+                            : "hidden"
+                        }
+                      >
+                        <div className="bg-white rounded-md shadow-xs">
+                          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            {services &&
+                              services.map((service) => (
+                                <Link
+                                  to={`/offer/${service.id}`}
+                                  onClick={this.handleServiceDropdown}
+                                  key={service.id}
+                                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                  role="menuitem"
+                                >
+                                  {service.name}
+                                </Link>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* End Dropdown */}
                     <a
                       href="#"
                       className="px-3 py-2 ml-4 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:text-white hover:bg-gray-900 "
@@ -93,6 +151,7 @@ class Navbar extends Component {
                   </div>
                 </div>
               </div>
+
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {!token && (
                   <React.Fragment>
@@ -128,16 +187,7 @@ class Navbar extends Component {
                         />
                       </button>
                     </div>
-                    {/* <!--
-                    Profile dropdown panel, show/hide based on dropdown state.
 
-                    Entering: "transition ease-out duration-100"
-                      From: "transform opacity-0 scale-95"
-                      To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                      From: "transform opacity-100 scale-100"
-                      To: "transform opacity-0 scale-95"
-                    --> */}
                     <div
                       className={
                         this.state.dropState
