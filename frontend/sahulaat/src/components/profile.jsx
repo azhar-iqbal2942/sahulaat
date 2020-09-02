@@ -22,6 +22,7 @@ class Profile extends Component {
     const { userOffer } = this.state;
     const { userDetail } = this.state;
     // console.log("Render", this.context);
+    console.log(userOffer);
 
     return (
       <div className="flex flex-col mt-12 lg:flex-row">
@@ -52,8 +53,8 @@ class Profile extends Component {
                           alt="Avatar"
                         />
                         <div className="text-sm">
-                          <p className="leading-none text-gray-900">Azhar Iqbal</p>
-                          <p className="text-gray-600">Aug 18</p>
+                          <p className="leading-none text-gray-900">{offer.author.first_name}</p>
+                          <p className="text-gray-600">{offer.created_date}</p>
                         </div>
                       </div>
                     </div>

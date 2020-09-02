@@ -3,6 +3,7 @@ import ListCard from "./card/list-card";
 import ListGroup from "./common/listGroup";
 import { getOfferList, getServices } from "../services/offer";
 import SearchBox from "./common/searchBox";
+import Footer from "../../src/components/common/footer";
 
 class List extends Component {
   state = {
@@ -48,21 +49,24 @@ class List extends Component {
     const data = this.getListData();
 
     return (
-      <div className="mx-10 my-8 lg:flex lg:flex-row">
-        <div className="inline-flex flex-wrap mt-6 rounded-lg lg:w-2/12 lg:flex-col ">
-          <ListGroup
-            data={services}
-            onItemSelect={this.handleServiceSelect}
-            selectedService={this.state.selectedService}
-          />
-        </div>
-
-        <div className="lg:w-10/12">
-          <div className="mx-auto my-8 lg:w-11/12">
-            <SearchBox value={this.state.searchQuery} handleChange={this.handleInput} />
+      <div>
+        <div className="mx-10 my-8 lg:flex lg:flex-row">
+          <div className="inline-flex flex-wrap mt-6 rounded-lg lg:w-2/12 lg:flex-col ">
+            <ListGroup
+              data={services}
+              onItemSelect={this.handleServiceSelect}
+              selectedService={this.state.selectedService}
+            />
           </div>
-          {data && data.map((offer) => <ListCard key={offer.id} data={offer} />)}
+
+          <div className="lg:w-10/12">
+            <div className="mx-auto my-8 lg:w-11/12">
+              <SearchBox value={this.state.searchQuery} handleChange={this.handleInput} />
+            </div>
+            {data && data.map((offer) => <ListCard key={offer.id} data={offer} />)}
+          </div>
         </div>
+        {/* <Footer /> */}
       </div>
     );
   }

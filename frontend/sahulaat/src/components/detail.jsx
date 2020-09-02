@@ -18,7 +18,8 @@ class Detail extends Component {
     this.setState({ comment });
   };
   handleSubmit = async () => {
-    await setComment(this.state.comment, this.state.offerDetail.author.id, this.state.offerDetail.id);
+    const user = JSON.parse(localStorage.getItem("user"));
+    await setComment(this.state.comment, user.id, this.state.offerDetail.id);
     const { data: comments } = await getCommentList(this.props.match.params.id);
     this.setState({ comments, comment: "" });
   };

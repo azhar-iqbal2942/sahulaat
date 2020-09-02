@@ -20,7 +20,7 @@ class Home extends Component {
       <React.Fragment>
         <Banner />
         <MainCard data={services} />
-        <Footer />
+        {/* <Footer /> */}
       </React.Fragment>
     );
   }

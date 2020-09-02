@@ -11,6 +11,7 @@ import Register from "./components/auth/register";
 import Logout from "./components/auth/logout";
 import OfferForm from "./components/form/offerForm";
 import Setting from "./components/setting";
+import Footer from "./components/common/footer";
 import "./style/tailwind/tailwind.output.css";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/" component={Home} />
         </Switch>
       </main>
+      <Footer/>
     </React.Fragment>
   );
 }
