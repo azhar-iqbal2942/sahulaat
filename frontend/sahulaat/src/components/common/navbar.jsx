@@ -142,12 +142,16 @@ class Navbar extends Component {
                     </div>
 
                     {/* End Dropdown */}
-                    <Link
-                      to="/team"
-                      className="px-3 py-2 ml-4 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:text-white hover:bg-gray-900 "
-                    >
-                      Team
-                    </Link>
+
+                    {token && (
+                      <Link
+                        to="/team"
+                        className="px-3 py-2 ml-4 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:text-white hover:bg-gray-900 "
+                      >
+                        Team
+                      </Link>
+                    )}
+
                     <Link
                       to="/about"
                       className="px-3 py-2 text-sm font-medium leading-5 text-gray-300 transition duration-150 ease-in-out rounded-md hover:bg-gray-900 "

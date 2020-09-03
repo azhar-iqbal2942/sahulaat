@@ -119,7 +119,11 @@ class Register extends Component {
 
             <button
               onClick={this.handleSubmit}
-              className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600"
+              className={
+                this.validate()
+                  ? "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600 opacity-50 cursor-not-allowed"
+                  : "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600"
+              }
             >
               Register
             </button>

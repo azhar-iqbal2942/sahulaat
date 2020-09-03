@@ -14,6 +14,7 @@ class Home extends Component {
   }
   render() {
     const { services } = this.state;
+    console.log(services);
 
     return (
       <React.Fragment>

@@ -8,8 +8,7 @@ const MainCard = ({ data }) => {
         <div className="flex flex-col w-full mb-20 text-center">
           <h1 className="mb-4 text-2xl font-medium tracking-widest text-gray-900 title-font">OUR SERVICES</h1>
           <p className="mx-auto text-base leading-relaxed lg:w-2/3">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table.
-            Franzen you probably haven't heard of them.
+            We can handle professionally home and office Maintenance & Repair Construction, or Other Handyman Services
           </p>
         </div>
         <div className="flex flex-wrap -m-4">
@@ -24,9 +23,9 @@ const MainCard = ({ data }) => {
                       src={service.thumbnail}
                     />
                     <div className="flex-grow sm:pl-8">
-                      <h2 className="text-lg font-medium text-gray-900 title-font">Holden Caulfield</h2>
-                      <h3 className="mb-3 text-gray-500">{service.name}</h3>
-                      <p className="mb-4">DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+                      <h2 className="mb-2 text-lg font-medium text-gray-900 title-font">{service.name}</h2>
+                      {/* <h3 className="mb-3 text-gray-500">Holden Caulfield</h3> */}
+                      <p className="mb-4">{service.description}</p>
                     </div>
                   </div>
                 </Link>

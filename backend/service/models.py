@@ -8,6 +8,8 @@ from user.models import CustomUser
 
 class Service(models.Model):
     name = models.CharField(_('Service Name'), max_length=255)
+    description = models.CharField(
+        _('Description'), max_length=255, blank=True, null=True)
     thumbnail = models.ImageField(
         default='service_default.jpg', upload_to='service')
 

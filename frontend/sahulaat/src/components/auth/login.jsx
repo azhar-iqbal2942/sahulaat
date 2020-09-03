@@ -74,7 +74,7 @@ class Login extends Component {
             </p>
           </div>
           <div className="flex flex-col w-full p-8 mt-10 bg-gray-200 rounded-lg lg:w-2/6 md:w-1/2 md:ml-auto md:mt-0">
-            <h2 className="mb-5 text-lg font-medium text-gray-900 title-font">Sign Up</h2>
+            <h2 className="mb-5 text-lg font-medium text-gray-900 title-font">Login</h2>
             <input
               value={account.email}
               onChange={this.handleChange}
@@ -98,7 +98,11 @@ class Login extends Component {
 
             <button
               onClick={this.handleSubmit}
-              className="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600"
+              className={
+                this.validate()
+                  ? "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600 opacity-50 cursor-not-allowed"
+                  : "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600"
+              }
             >
               Login
             </button>

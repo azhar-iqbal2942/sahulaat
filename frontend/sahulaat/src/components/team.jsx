@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import { getPhoneBookList, setPhoneBook } from "./../services/offer";
 
 class Team extends Component {
@@ -11,6 +12,30 @@ class Team extends Component {
       email: "",
       phone_no: "",
     },
+    errors: {},
+  };
+
+  schema = {
+    first_name: Joi.string().required().label("First Name"),
+    last_name: Joi.string().required().label("Last Name"),
+    email: Joi.string()
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .required()
+      .label("Email"),
+    phone_no: Joi.number().integer().required().label("Phone No"),
+  };
+  validate = () => {
+    const { error } = Joi.validate(this.state.phoneBook_data, this.schema, { abortEarly: false });
+    if (!error) return null;
+    const errors = {};
+    for (let item of error.details) errors[item.path[0]] = item.message;
+    return errors;
+  };
+  validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
   };
 
   async componentDidMount() {
@@ -26,12 +51,22 @@ class Team extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
     const phoneBook_data = { ...this.state.phoneBook_data };
     phoneBook_data[input.name] = input.value;
-    this.setState({ phoneBook_data });
+    this.setState({ phoneBook_data, errors });
   };
 
   handleSubmit = async () => {
+    const errors = this.validate();
+    console.log(errors);
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+
     const user = JSON.parse(localStorage.getItem("user"));
     await setPhoneBook(user.id, this.state.phoneBook_data);
     const { data: phoneBook } = await getPhoneBookList(user.id);
@@ -40,7 +75,7 @@ class Team extends Component {
   };
 
   render() {
-    const { phoneBook, isContactAdded, phoneBook_data } = this.state;
+    const { phoneBook, isContactAdded, phoneBook_data, errors } = this.state;
     return (
       <div>
         <section className="text-gray-700 body-font">
@@ -60,7 +95,11 @@ class Team extends Component {
                 </button>
                 <button
                   onClick={this.handleSubmit}
-                  className="px-4 py-2 font-bold text-white bg-blue-500 rounded focus:outline-none "
+                  className={
+                    this.validate()
+                      ? "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600 opacity-50 cursor-not-allowed"
+                      : "px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded  focus:outline-none hover:bg-indigo-600"
+                  }
                 >
                   Save
                 </button>
@@ -88,6 +127,7 @@ class Team extends Component {
                       placeholder="First Name"
                       type="text"
                     />
+                    {errors.first_name && <p className="text-xs italic text-red-500">{errors.first_name}</p>}
 
                     <input
                       id="last_name"
@@ -98,6 +138,8 @@ class Team extends Component {
                       placeholder="Last Name"
                       type="text"
                     />
+                    {errors.last_name && <p className="text-xs italic text-red-500">{errors.last_name}</p>}
+
                     <input
                       id="email"
                       name="email"
@@ -107,6 +149,8 @@ class Team extends Component {
                       placeholder="Email"
                       type="email"
                     />
+                    {errors.email && <p className="text-xs italic text-red-500">{errors.email}</p>}
+
                     <input
                       id="phone_no"
                       name="phone_no"
@@ -116,6 +160,7 @@ class Team extends Component {
                       placeholder="Phone no"
                       type="text"
                     />
+                    {errors.phone_no && <p className="text-xs italic text-red-500">{errors.phone_no}</p>}
                   </div>
                 </div>
               </section>

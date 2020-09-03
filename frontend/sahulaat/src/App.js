@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Navbar from "./components/common/navbar";
 import Home from "./components/home";
@@ -15,6 +15,7 @@ import Footer from "./components/common/footer";
 import Team from "./components/team";
 import About from "./components/about";
 import Contact from "./components/contactUs";
+import NotFound from "./components/common/not-found";
 import "./style/tailwind/tailwind.output.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Navbar />
       <main>
         <Switch>
+          <Route path="/not-found" component={NotFound} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
           <Route path="/team" component={Team} />
@@ -35,6 +37,7 @@ function App() {
           <Route path="/offer/detail/:id" component={Detail} />
           <Route path="/offer/:id" component={List} />
           <Route exact path="/" component={Home} />
+          <Redirect to="/not-found" />
         </Switch>
       </main>
       <Footer />
