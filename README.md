@@ -6,3 +6,5 @@ Django Rest Framework
 Tailwind CSS
 Djoser (for auth)
 Pillow
+
+
